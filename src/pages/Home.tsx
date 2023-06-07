@@ -2,11 +2,15 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from "@mui/material/Container";
+import {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
 
 type Props = {}
 
 const Home = (props: Props) => {
+    const {authenticated} = useContext(AuthContext);
 
+    console.log('authenticated', authenticated)
     return (
         <Container component="main" maxWidth="xs">
             <Box

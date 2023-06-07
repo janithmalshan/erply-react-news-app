@@ -7,13 +7,16 @@ type Props = {
 
 type IAuthContext = {
     authenticated: boolean;
-    setAuthenticated: (newState: boolean) => void
+    setAuthenticated: (newState: boolean) => void;
+    token: string;
+    setToken: (newState: string) => void
 }
 
 const initialValue = {
     authenticated: false,
-    setAuthenticated: () => {
-    }
+    setAuthenticated: () => {},
+    token: '',
+    setToken: () => {}
 }
 
 const AuthContext = createContext<IAuthContext>(initialValue)
@@ -21,11 +24,12 @@ const AuthContext = createContext<IAuthContext>(initialValue)
 const AuthProvider = ({children}: Props) => {
     //Initializing an auth state with false
     const [authenticated, setAuthenticated] = useState(initialValue.authenticated)
+    const [token, setToken] = useState(initialValue.token)
 
     const navigate = useNavigate()
 
     return (
-        <AuthContext.Provider value={{authenticated, setAuthenticated}}>
+        <AuthContext.Provider value={{authenticated, setAuthenticated, token, setToken}}>
             {children}
         </AuthContext.Provider>
     )

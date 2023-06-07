@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,29 +8,78 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { useLocation, useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import axios from "axios";
 import {AuthContext} from "../context/AuthContext";
 
 type Props = {}
 
 const Login = (props: Props) => {
-    const {authenticated, setAuthenticated} = useContext(AuthContext);
+    const {authenticated, setAuthenticated, token, setToken} = useContext(AuthContext);
     const navigate = useNavigate();
+//b2a883c8139c457f85c1a1df484d278e
     const handleSubmit = () => {
-
+        const url = 'https://newsapi.org/v2/everything?q=keyword&apiKey=' + token;
+        axios.get(url).then(r => {
+            console.log(r.data.status)
+            if (r.data.status == "ok") {
+                navigate("/")
+            }
+        }).catch(function (error) {
+            // navigate to login page if token invalid
+            navigate("/login")
+        });
         setAuthenticated(true);
-        navigate("/");
-        console.log('submit')
+        if (authenticated) {
+            navigate("/");
+        }
+        console.log('+', authenticated, token)
     }
     return (
         <Container component="div" maxWidth="xs">
-            <Button
-                fullWidth
-                variant="contained"
-                onClick={() => handleSubmit()}
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }}
             >
-                Sign In
-            </Button>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Button>test</Button>
+                <Box component="form" sx={{mt: 1}}>
+                    <TextField
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoFocus
+                    />
+                    <TextField
+                        fullWidth
+                        name="token"
+                        label="Token"
+                        id="token"
+                        onChange={(e) => setToken(e.target.value)}
+                    />
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        onClick={handleSubmit}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item>
+                            <Link href="#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
         </Container>
     );
 }
