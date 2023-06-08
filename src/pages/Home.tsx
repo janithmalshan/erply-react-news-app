@@ -26,10 +26,9 @@ const Home = (props: Props) => {
             await axios.get(url).then((response) => {
                 setData(response.data.articles);
             })
-            console.log(":::: loading ::::")
             setIsLoading(false)
         } catch (e) {
-            console.log("ERROR", e) //TODO show error
+            alert("ERROR:: Try again!")
         }
     }
     return (
