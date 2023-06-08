@@ -1,5 +1,4 @@
 import {createContext, ReactNode, useState} from 'react'
-import {useNavigate} from 'react-router-dom';
 
 type Props = {
     children?: ReactNode;
@@ -25,8 +24,6 @@ const AuthProvider = ({children}: Props) => {
     //Initializing an auth state with false
     const [authenticated, setAuthenticated] = useState(initialValue.authenticated)
     const [token, setToken] = useState(initialValue.token)
-
-    const navigate = useNavigate()
 
     return (
         <AuthContext.Provider value={{authenticated, setAuthenticated, token, setToken}}>

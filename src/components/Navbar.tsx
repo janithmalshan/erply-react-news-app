@@ -7,10 +7,8 @@ import {useContext} from "react";
 import {AuthContext} from "../context/AuthContext";
 import {useNavigate} from "react-router-dom";
 
-type Props = {}
-
-const Navbar = (props: Props) => {
-    const { authenticated, setAuthenticated, setToken } = useContext(AuthContext)
+const Navbar = () => {
+    const {authenticated, setAuthenticated, setToken} = useContext(AuthContext)
     const navigate = useNavigate()
     const handleLogout = () => {
         setAuthenticated(false)
@@ -20,7 +18,7 @@ const Navbar = (props: Props) => {
     return (
         <AppBar position="sticky">
             <Toolbar variant="dense">
-                <Typography align="left" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography align="left" variant="h6" component="div" sx={{flexGrow: 1}}>
                     News
                 </Typography>
                 {authenticated && <p>{authenticated}</p>}

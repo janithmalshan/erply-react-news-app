@@ -8,9 +8,7 @@ import axios from 'axios';
 import {CircularProgress} from "@mui/material";
 import NewsItem from "../components/NewsItem";
 
-type Props = {}
-
-const Home = (props: Props) => {
+const Home = () => {
     const {authenticated, token} = useContext(AuthContext);
 
     console.log('authenticated', authenticated)
@@ -32,11 +30,11 @@ const Home = (props: Props) => {
         }
     }
     return (
-        <Container sx={{ mb: 2 }} maxWidth={false}>
-            <Typography sx={{ mt: 5 }} component="h1" variant="h4">
+        <Container sx={{mb: 2}} maxWidth={false}>
+            <Typography sx={{mt: 5}} component="h1" variant="h4">
                 Top news headlines...
             </Typography>
-            {isLoading && <h1>:::: loading <CircularProgress color="success" /> ::::</h1>}
+            {isLoading && <h1>:::: loading <CircularProgress color="success"/> ::::</h1>}
             <Box
                 sx={{
                     marginTop: 8,
@@ -49,7 +47,7 @@ const Home = (props: Props) => {
             >
                 {data.map((item, index) => {
                     // @ts-ignore
-                    return <NewsItem key={index} title={item.title} desc={item.content} img={item.urlToImage} url={item.url} />
+                    return <NewsItem key={index} title={item.title} desc={item.content} img={item.urlToImage} url={item.url}/>
                 })}
             </Box>
         </Container>

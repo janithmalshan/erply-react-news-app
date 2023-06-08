@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -55,13 +55,14 @@ const Login = (props: Props) => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <Box component="form" sx={{mt: 1}}>
+                <Box component="form" sx={{mt: 1}} noValidate={true} autoComplete="off">
                     <TextField
                         fullWidth
                         id="email"
                         label="Email Address"
                         name="email"
                         autoFocus
+                        required
                     />
                     <TextField
                         fullWidth
@@ -69,6 +70,7 @@ const Login = (props: Props) => {
                         label="Token"
                         id="token"
                         onChange={(e) => setToken(e.target.value)}
+                        required
                     />
                     <Button
                         fullWidth
