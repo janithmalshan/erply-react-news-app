@@ -17,7 +17,6 @@ const Login = (props: Props) => {
     const {authenticated, setAuthenticated, token, setToken} = useContext(AuthContext);
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
-//b2a883c8139c457f85c1a1df484d278e
     const handleSubmit = () => {
         const url = 'https://newsapi.org/v2/everything?q=keyword&apiKey=' + token;
         axios.get(url).then(r => {
