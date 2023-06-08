@@ -21,19 +21,17 @@ const Login = (props: Props) => {
     const handleSubmit = () => {
         const url = 'https://newsapi.org/v2/everything?q=keyword&apiKey=' + token;
         axios.get(url).then(r => {
-            console.log(r.data.status)
             if (r.data.status == "ok") {
+                setAuthenticated(true);
                 navigate("/")
             }
         }).catch(function (error) {
             // navigate to login page if token invalid
             navigate("/login")
         });
-        setAuthenticated(true);
         if (authenticated) {
             navigate("/");
         }
-        console.log('+', authenticated, token)
     }
     return (
         <Container component="div" maxWidth="xs">
@@ -73,7 +71,7 @@ const Login = (props: Props) => {
                     </Button>
                     <Grid container>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="https://newsapi.org/register" variant="body2" target={"_blank"}>
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

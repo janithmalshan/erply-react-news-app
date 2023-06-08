@@ -6,6 +6,7 @@ import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../context/AuthContext";
 import axios from 'axios';
 import {CircularProgress} from "@mui/material";
+import NewsItem from "../components/NewsItem";
 
 type Props = {}
 
@@ -25,30 +26,31 @@ const Home = (props: Props) => {
             await axios.get(url).then((response) => {
                 setData(response.data.articles);
             })
-            console.log("::::loading")
+            console.log(":::: loading ::::")
             setIsLoading(false)
         } catch (e) {
             console.log("ERROR", e) //TODO show error
         }
     }
-    console.log(data)
     return (
-        <Container component="main" maxWidth="xs">
+        <Container sx={{ mb: 2 }} maxWidth={false}>
+            <Typography sx={{ mt: 5 }} component="h1" variant="h4">
+                Top news headlines...
+            </Typography>
+            {isLoading && <h1>:::: loading <CircularProgress color="success" /> ::::</h1>}
             <Box
                 sx={{
                     marginTop: 8,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    marginBottom: 8,
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gridGap: "20px",
+                    alignContent: "center",
                 }}
             >
-                <Typography component="h1" variant="h5">
-                    Home
-                </Typography>
-                {isLoading && <h1>Loading <CircularProgress color="success" /></h1>}
                 {data.map((item, index) => {
                     // @ts-ignore
-                    return <h1 key={index}>{item.title}</h1>
+                    return <NewsItem key={index} title={item.title} desc={item.content} img={item.urlToImage} url={item.url} />
                 })}
             </Box>
         </Container>
